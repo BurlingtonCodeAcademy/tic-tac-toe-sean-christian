@@ -1,4 +1,5 @@
 let startButton = document.getElementById('start');
+let playerTurn = document.getElementById("playerTurn");
 
 startButton.onclick = function initialize(e) {
     startButton.disabled = true;
@@ -12,10 +13,10 @@ const game = {
     switch() {
         if (this.playerTurn === 'X') {
             this.playerTurn = 'O';
-            document.getElementById("playerTurn").textContent("O");
+            playerTurn.textContent = 'O'
         } else {
             this.playerTurn = 'X';
-            document.getElementById("playerTurn").textContent("X");
+            playerTurn.textContent = 'X'
         }
     },
     getGameState() {
