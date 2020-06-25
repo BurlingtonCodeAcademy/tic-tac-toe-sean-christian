@@ -1,6 +1,7 @@
 let startButton = document.getElementById("start");
 let playerTurn = document.getElementById("playerTurn");
 
+let timer
 
 startButton.onclick = function initialize(e) {
   startButton.disabled = true;
@@ -122,8 +123,12 @@ function gameAction(e) {
 function clearBoard() {
   startButton.disabled = false;
   game.gameState = [];
-  clearInterval(timerCount);
+  if (timer){
+    clearInterval(timer)
+  }
   totalSec = 0
+  sec.innerHTML = "0"
+  min.innerHTML = "0"
   for (let cell of gameCells) {
     cell.removeEventListener("click", gameAction);
     cell.textContent = '';
@@ -138,8 +143,8 @@ let sec = document.getElementById("seconds");
 let totalSec = 0;
 
 function timerCount() {
-  setInterval(setTime, 1000);
-}
+  timer = setInterval(setTime, 1000);
+} 
 function setTime() {
   ++totalSec;
   sec.innerHTML = pad(totalSec % 60);
