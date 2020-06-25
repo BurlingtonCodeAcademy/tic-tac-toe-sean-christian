@@ -36,8 +36,8 @@ const game = {
     if (e.target.textContent === "X" || e.target.textContent === "O") {
       alert("That space is taken! Please choose another spot!");
     } else {
-      e.target.textContent = game.playerTurn;
-      game.switch();
+      e.target.textContent = this.playerTurn;
+      this.switch();
     }
   },
 };
