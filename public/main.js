@@ -4,6 +4,7 @@ let playerTurn = document.getElementById("playerTurn");
 
 startButton.onclick = function initialize(e) {
   startButton.disabled = true;
+  timerCount();
   activateGame();
 };
 
@@ -11,6 +12,7 @@ const game = {
   activated: false,
   playerTurn: "X",
   gameState: [],
+
   switch() {
     if (this.playerTurn === "X") {
       this.playerTurn = "O";
@@ -100,6 +102,7 @@ const game = {
 function activateGame() {
   game.activated = true;
   alert(`The game is afoot! It is ${game.playerTurn}'s turn!`);
+  
   gameSetup();
 }
 
@@ -119,8 +122,35 @@ function gameAction(e) {
 function clearBoard() {
   startButton.disabled = false;
   game.gameState = [];
+  clearInterval(timerCount);
+  totalSec = 0
   for (let cell of gameCells) {
     cell.removeEventListener("click", gameAction);
     cell.textContent = '';
+    game.playerTurn = "X";
+    game.seconds = "0";
+  }
+}
+
+
+let min = document.getElementById("minutes");
+let sec = document.getElementById("seconds");
+let totalSec = 0;
+
+function timerCount() {
+  setInterval(setTime, 1000);
+}
+function setTime() {
+  ++totalSec;
+  sec.innerHTML = pad(totalSec % 60);
+  min.innerHTML = pad(parseInt(totalSec / 60));
+}
+
+function pad(val) {
+  let valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
   }
 }
