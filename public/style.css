@@ -57,6 +57,7 @@ body {
   }
   
   div.board {
+    visibility: hidden;
     width: 608px;
     overflow: hidden;
     margin: 0 auto;
@@ -65,4 +66,10 @@ body {
   .cell {
     font-size: 150px;
     color: white;
+  }
+.status {
+  visibility: hidden;
+}
+  #nameForm {
+    
   }

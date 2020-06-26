@@ -11,6 +11,15 @@
 
 <body>
   <h2>Tic Tac Toe</h2>
+  <form id='nameForm'>
+    <label for="xName">Player One:</label><br>
+    <input type="text" id="xName" name="xName"><br>
+    <label for="oName">Player Two:</label><br>
+    <input type="text" id="oName" name="oName">
+    <br>
+    <button id='nameSubmit' type='submit'>Submit</button>
+  </form>  
+
   <div class="board">
     <div id="row-1">
       <div class="cell" id="cell-0"></div>
@@ -30,12 +39,12 @@
   </div>
 
   <div class="status">
-    <div>It's your turn Player <span id="playerTurn">X</span></div>
+    <div>It's your turn <span id="playerName"></span></div>
     <button id="start" type="button">Start Game</button>
+    <br>
+    <span id="minutes">00</span>:<span id="seconds">00</span>
   </div>
 
-  <span id="minutes">00</span>:<span id="seconds">00</span>
-  
   <script src="main.js"></script>
 </body>
 

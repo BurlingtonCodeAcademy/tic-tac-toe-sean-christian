@@ -1,7 +1,22 @@
 let startButton = document.getElementById("start");
-let playerTurn = document.getElementById("playerTurn");
-
+let playerName = document.getElementById("playerName");
+let xName = document.getElementById('xName');
+let oName = document.getElementById('oName');
+let nameSubmit = document.getElementById('nameSubmit')
+let nameForm = document.getElementById('nameForm')
+let board = document.getElementsByClassName('board')[0]
+let statusBar = document.getElementsByClassName('status')[0]
 let timer
+
+nameSubmit.onclick = function(event){
+  event.preventDefault()
+  xName = xName.value;
+  oName = oName.value;
+  playerName = xName;
+  statusBar.style.visibility = "visible";
+  nameForm.style.display = "none"; 
+  board.style.visibility = "visible"; 
+}
 
 startButton.onclick = function initialize(e) {
   startButton.disabled = true;
@@ -17,10 +32,10 @@ const game = {
   switch() {
     if (this.playerTurn === "X") {
       this.playerTurn = "O";
-      playerTurn.textContent = "O";
+      playerName.textContent = oName.value;
     } else {
       this.playerTurn = "X";
-      playerTurn.textContent = "X";
+      playerName.textContent = xName.value;
     }
   },
   getGameState() {
@@ -32,9 +47,9 @@ const game = {
   },
   statusUpdate() {
     if (this.playerTurn === "X") {
-      playerTurn = "O";
+      playerName = xName.value;
     } else {
-      playerTurn = "X";
+      playerName = oName.value;
     }
   },
   markBoard(e) {
@@ -115,6 +130,7 @@ function gameSetup() {
     cell.addEventListener("click", gameAction);
   }
 }
+
 function gameAction(e) {
   game.markBoard(e);
   game.getGameState();
@@ -127,8 +143,8 @@ function clearBoard() {
     clearInterval(timer)
   }
   totalSec = 0
-  sec.innerHTML = "0"
-  min.innerHTML = "0"
+  sec.innerHTML = "00"
+  min.innerHTML = "00"
   for (let cell of gameCells) {
     cell.removeEventListener("click", gameAction);
     cell.textContent = '';
