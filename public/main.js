@@ -6,16 +6,36 @@ let nameSubmit = document.getElementById('nameSubmit')
 let nameForm = document.getElementById('nameForm')
 let board = document.getElementsByClassName('board')[0]
 let statusBar = document.getElementsByClassName('status')[0]
+let playerVersusPlayer = document.getElementById('playerVersusPlayer')
+let playerVersusCPU = document.getElementById('playerVersusCPU')
+let gameChoice = document.getElementById('gameChoice');
 let timer
 
-nameSubmit.onclick = function(event){
+playerVersusPlayer.onclick = function (event) {
+  event.preventDefault();
+  gameChoice.style.display = "none";
+  nameForm.style.visibility = 'visible';
+  game.gameChoice = "playerVersusPlayer";
+}
+
+playerVersusCPU.onclick = function (event) {
+  event.preventDefault();
+  gameChoice.style.display = "none";
+  board.style.visibility = "visible";
+  playerName.textContent = game.playerTurn;
+  statusBar.style.visibility = 'visible';
+  game.gameChoice = "playerVersusCPU";
+}
+
+nameSubmit.onclick = function (event) {
   event.preventDefault()
   xName = xName.value;
   oName = oName.value;
-  playerName = xName;
+  playerName.textContent = xName;
+  console.log(playerName)
   statusBar.style.visibility = "visible";
-  nameForm.style.display = "none"; 
-  board.style.visibility = "visible"; 
+  nameForm.style.display = "none";
+  board.style.visibility = "visible";
 }
 
 startButton.onclick = function initialize(e) {
@@ -28,16 +48,27 @@ const game = {
   activated: false,
   playerTurn: "X",
   gameState: [],
-
+  gameChoice: "",
   switch() {
-    if (this.playerTurn === "X") {
+    if ((this.playerTurn === "X") && (this.gameChoice === "playerVersusPlayer")) {
       this.playerTurn = "O";
-      playerName.textContent = oName.value;
+      playerName.textContent = oName;
+    } else if ((this.playerTurn === "O") && (this.gameChoice === "playerVersusCPU")) {
+      this.addCPUMove();
+      this.playerTurn = "X"
+      this.switch();
+    } else if ((this.playerTurn === "X") && (this.gameChoice === "playerVersusPlayer")) {
+      this.playerTurn = "O";
+      playerName.textContent = xName;
     } else {
-      this.playerTurn = "X";
-      playerName.textContent = xName.value;
+      this.playerTurn = "O";
+      playerName.textContent = "O";
+      this.switch();
     }
   },
+  addCPUMove() {
+    
+  }
   getGameState() {
     const gameCells = document.querySelectorAll(".cell");
     gameCells.forEach((cell, index) => {
@@ -118,7 +149,7 @@ const game = {
 function activateGame() {
   game.activated = true;
   alert(`The game is afoot! It is ${game.playerTurn}'s turn!`);
-  
+
   gameSetup();
 }
 
@@ -139,7 +170,8 @@ function gameAction(e) {
 function clearBoard() {
   startButton.disabled = false;
   game.gameState = [];
-  if (timer){
+  game.gameChoice = "";
+  if (timer) {
     clearInterval(timer)
   }
   totalSec = 0
@@ -160,7 +192,7 @@ let totalSec = 0;
 
 function timerCount() {
   timer = setInterval(setTime, 1000);
-} 
+}
 function setTime() {
   ++totalSec;
   sec.innerHTML = pad(totalSec % 60);

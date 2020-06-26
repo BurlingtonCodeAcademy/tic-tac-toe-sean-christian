@@ -11,6 +11,10 @@
 
 <body>
   <h2>Tic Tac Toe</h2>
+  <form id='gameChoice'>
+    <button type='submit' id='playerVersusPlayer'>Player vs. Player</button>
+    <button type='submit' id='playerVersusCPU'>Player vs. Computer</button>
+  </form>
   <form id='nameForm'>
     <label for="xName">Player One:</label><br>
     <input type="text" id="xName" name="xName"><br>
@@ -40,6 +44,7 @@
 
   <div class="status">
     <div>It's your turn <span id="playerName"></span></div>
+
     <button id="start" type="button">Start Game</button>
     <br>
     <span id="minutes">00</span>:<span id="seconds">00</span>
