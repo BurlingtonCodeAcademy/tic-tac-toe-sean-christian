@@ -54,22 +54,22 @@ const game = {
     if ((this.playerTurn === "X") && (this.gameChoice === "playerVersusPlayer")) {
       this.playerTurn = "O";
       playerName.textContent = oName;
-    } else if ((this.playerTurn === "O") && (this.gameChoice === "playerVersusCPU")) {
-      this.addCPUMove();
-      this.playerTurn = "X"
-      game.getGameState();
-      this.switch();
     } else if ((this.playerTurn === "O") && (this.gameChoice === "playerVersusPlayer")) {
       this.playerTurn = "X";
       playerName.textContent = xName;
-    } else {
-      this.playerTurn = "O";
-      playerName.textContent = "O";
+    } else if ((this.playerTurn === "X") && (this.gameChoice === "playerVersusCPU")) {
+      this.playerTurn = "O"
+      this.addCPUMove();
       game.getGameState();
+      this.switch();
+    }  else {
+      this.playerTurn = "X";
+      game.getGameState();
+      playerName.textContent = "O";
       this.switch();
     }
   },
-  addCPUMove() {
+  addCPUMove() { // Game board marking for CPU in Player vs. Computer game
     let randomIndex = (Math.floor(Math.random() * 9));
     if ((this.gameState[randomIndex] !== 'X') && (this.gameState[randomIndex] !== 'O')) {
       this.gameState[randomIndex] = 'O';
