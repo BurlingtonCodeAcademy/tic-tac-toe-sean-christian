@@ -68,7 +68,7 @@ const game = {
   },
   addCPUMove() {
     
-  }
+  },
   getGameState() {
     const gameCells = document.querySelectorAll(".cell");
     gameCells.forEach((cell, index) => {
