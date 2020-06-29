@@ -28,9 +28,9 @@ body {
   div[id^="row-"] div {
     width: 200px;
     height: 200px;
-    border: 1px solid red;
+    border: 2px solid red;
     float: left;
-  
+    border-radius: 30px;
   }
   
   div[id^="row-"] div:last-child {

@@ -110,7 +110,7 @@ const game = {
       playerName.textContent = xName;
     } else if (
       (this.playerTurn === "X") &&
-    (this.gameChoice === "playerVersusCPU")
+      (this.gameChoice === "playerVersusCPU")
     ) {
       this.playerTurn = "O";
       this.addCPUMove();
