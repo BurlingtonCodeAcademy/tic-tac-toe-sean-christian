@@ -1,85 +1,75 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background:rgb(182, 181, 181);
-}
-
-.play-board {
-    display: grid;
-    width: 300px;
-    height: 300px;
-    grid-template-columns: auto auto auto;
-}
-
-.block {
-    display: flex;
-    width: 100px;
-    height: 100px;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    font-weight: bold;
-    border: 3px solid black;
-    transition: background 0.2s ease-in-out;
-}
-
-.block:hover {
-    cursor: pointer;
-    background: #0ff30f;
-}
-
-.occupied:hover {
-    background: #ff3a3a;
-}
-
-#block_0,
-#block_1,
-#block_2 {
-    border-top: none;
-}
-
-#block_0,
-#block_3,
-#block_6 {
-    border-left: none;
-}
-
-#block_6,
-#block_7,
-#block_8 {
-    border-bottom: none;
-}
-
-#block_2,
-#block_5,
-#block_8 {
-    border-right: none;
-}
-
-
-/* Button Styling */
-#start {
-    outline: none;
-    border: 4px solid green;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    background: none;
-    transition: all 0.2s ease-in-out;
-}
-
-#start:hover {
-    cursor: pointer;
-    background: green;
+body {
+    background-color: black;
     color: white;
+    width: 1000px;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px;
+    user-select: none;
+  
+  }
+  
+  title {
+    font-size: 300px;
+  }
+  
+  h2 {
+    font-size: 75px;
+    text-align: center;
+    height: 75px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  span{
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  
+  div[id^="row-"] div {
+    width: 200px;
+    height: 200px;
+    border: 1px solid red;
+    float: left;
+    border-radius: 30px;
+  }
+  
+  div[id^="row-"] div:last-child {
+    border-right: none;
+  }
+  
+  div[id^="row-"] div:first-child {
+    border-left: none;
+  }
+  
+  div[id="row-1"] div{
+    border-top: none;
+  }
+  
+  div[id="row-3"] div{
+      border-bottom: none;
+  }
+  
+  div[id^="row-"] {
+    clear: float;
+    width: 608px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  div.board {
+    visibility: hidden;
+    width: 608px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .cell {
+    font-size: 150px;
+    color: white;
+  }
+.status {
+  visibility: hidden;
 }
+  #nameForm {
+    visibility: hidden;
+  }
