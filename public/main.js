@@ -24,6 +24,7 @@ playerVersusCPU.onclick = function (event) {
   board.style.visibility = "visible";
   playerName.textContent = game.playerTurn;
   statusBar.style.visibility = 'visible';
+  nameForm.style.display = "none";
   game.gameChoice = "playerVersusCPU";
 }
 
@@ -56,19 +57,26 @@ const game = {
     } else if ((this.playerTurn === "O") && (this.gameChoice === "playerVersusCPU")) {
       this.addCPUMove();
       this.playerTurn = "X"
+      game.getGameState();
       this.switch();
-    } else if ((this.playerTurn === "X") && (this.gameChoice === "playerVersusPlayer")) {
-      this.playerTurn = "O";
+    } else if ((this.playerTurn === "O") && (this.gameChoice === "playerVersusPlayer")) {
+      this.playerTurn = "X";
       playerName.textContent = xName;
     } else {
       this.playerTurn = "O";
       playerName.textContent = "O";
+      game.getGameState();
       this.switch();
     }
   },
   addCPUMove() {
-    
-  }
+    let randomIndex = (Math.floor(Math.random() * 9));
+    if ((this.gameState[randomIndex] !== 'X') && (this.gameState[randomIndex] !== 'O')) {
+      this.gameState[randomIndex] = 'O';
+    } else {
+      game.addCPUMove();
+    }
+  },
   getGameState() {
     const gameCells = document.querySelectorAll(".cell");
     gameCells.forEach((cell, index) => {
@@ -88,68 +96,73 @@ const game = {
       alert("That space is taken! Please choose another spot!");
     } else {
       e.target.textContent = this.playerTurn;
+      game.getGameState();
       this.switch();
     }
   },
   gameWin() {
     if (this.gameState[0] === 'X' && this.gameState[1] === 'X' && this.gameState[2] === 'X') {
-      alert('Player X has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player X has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[3] === 'X' && this.gameState[4] === 'X' && this.gameState[5] === 'X')) {
-      alert('Player X has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player X has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[6] === 'X' && this.gameState[7] === 'X' && this.gameState[8] === 'X')) {
-      alert('Player X has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player X has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[0] === 'X' && this.gameState[3] === 'X' && this.gameState[6] === 'X')) {
-      alert('Player X has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player X has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[1] === 'X' && this.gameState[4] === 'X' && this.gameState[7] === 'X')) {
-      alert('Player X has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player X has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[2] === 'X' && this.gameState[5] === 'X' && this.gameState[8] === 'X')) {
-      alert('Player X has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player X has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[0] === 'X' && this.gameState[4] === 'X' && this.gameState[8] === 'X')) {
-      alert('Player X has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player X has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[2] === 'X' && this.gameState[4] === 'X' && this.gameState[6] === 'X')) {
-      alert('Player X has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player X has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if (this.gameState[0] === 'O' && this.gameState[1] === 'O' && this.gameState[2] === 'O') {
-      alert('Player O has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player O has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[3] === 'O' && this.gameState[4] === 'O' && this.gameState[5] === 'O')) {
-      alert('Player O has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player O has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[6] === 'O' && this.gameState[7] === 'O' && this.gameState[8] === 'O')) {
-      alert('Player O has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player O has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[0] === 'O' && this.gameState[3] === 'O' && this.gameState[6] === 'O')) {
-      alert('Player O has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player O has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[1] === 'O' && this.gameState[4] === 'O' && this.gameState[7] === 'O')) {
-      alert('Player O has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player O has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[2] === 'O' && this.gameState[5] === 'O' && this.gameState[8] === 'O')) {
-      alert('Player O has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player O has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[0] === 'O' && this.gameState[4] === 'O' && this.gameState[8] === 'O')) {
-      alert('Player O has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player O has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState[2] === 'O' && this.gameState[4] === 'O' && this.gameState[6] === 'O')) {
-      alert('Player O has won!');
-      clearBoard();
+      setTimeout(function() {alert('Player O has won!')}, 0);
+      setTimeout(function() {location.reload()}, 0);
     } else if ((this.gameState.includes('') === false)) {
-      alert('The game is draw!');
-      clearBoard();
+      setTimeout(function() {alert('The game is draw!')}, 0);
+      setTimeout(function() {location.reload();}, 0);
     }
   }
 }
 function activateGame() {
   game.activated = true;
+  console.log(game.gameChoice);
+  if (game.gameChoice === 'playerVersusComputer') {
   alert(`The game is afoot! It is ${game.playerTurn}'s turn!`);
-
+  } else if (game.gameChoice === 'playerVersusPlayer') {
+    alert(`The game is afoot! It is ${xName}'s turn!`);
+  }
   gameSetup();
 }
 
@@ -164,26 +177,27 @@ function gameSetup() {
 
 function gameAction(e) {
   game.markBoard(e);
-  game.getGameState();
+  
+  console.log(game.gameChoice);
 }
 
-function clearBoard() {
-  startButton.disabled = false;
-  game.gameState = [];
-  game.gameChoice = "";
-  if (timer) {
-    clearInterval(timer)
-  }
-  totalSec = 0
-  sec.innerHTML = "00"
-  min.innerHTML = "00"
-  for (let cell of gameCells) {
-    cell.removeEventListener("click", gameAction);
-    cell.textContent = '';
-    game.playerTurn = "X";
-    game.seconds = "0";
-  }
-}
+//function clearBoard() {
+//  startButton.disabled = false;
+//  game.gameState = [];
+//  game.gameChoice = "";
+//  if (timer) {
+//    clearInterval(timer)
+//  }
+//  totalSec = 0
+//  sec.innerHTML = "00"
+//  min.innerHTML = "00"
+//  for (let cell of gameCells) {
+//    cell.removeEventListener("click", gameAction);
+//    cell.textContent = '';
+//    game.playerTurn = "X";
+//    game.seconds = "0";
+//  }
+//}
 
 
 let min = document.getElementById("minutes");
