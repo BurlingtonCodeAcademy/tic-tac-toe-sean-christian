@@ -99,18 +99,18 @@ const game = {
   gameState: [],
   gameChoice: "",
   switch() {
-    if (this.playerTurn === "X" && this.gameChoice === "playerVersusPlayer") {
+    if ((this.playerTurn === "X") && (this.gameChoice === "playerVersusPlayer")) {
       this.playerTurn = "O";
       playerName.textContent = oName;
     } else if (
-      this.playerTurn === "O" &&
-      this.gameChoice === "playerVersusPlayer"
+      (this.playerTurn === "O") &&
+      (this.gameChoice === "playerVersusPlayer")
     ) {
       this.playerTurn = "X";
       playerName.textContent = xName;
     } else if (
-      this.playerTurn === "X" &&
-      this.gameChoice === "playerVersusCPU"
+      (this.playerTurn === "X") &&
+      (this.gameChoice === "playerVersusCPU")
     ) {
       this.playerTurn = "O";
       this.addCPUMove();
@@ -124,7 +124,16 @@ const game = {
     }
   },
   addCPUMove() {
-    
+    // Game board marking for CPU in Player vs. Computer game
+    let randomIndex = Math.floor(Math.random() * 9);
+    console.log(randomIndex);
+    if ((this.gameState[randomIndex] !== "X") && (this.gameState[randomIndex] !== "O")) {
+      console.log(this.gameState[randomIndex]);
+      this.gameState[randomIndex] = "O";
+    } 
+    else {
+      game.addCPUMove(); // Current problem is that this method keeps getting called infinite times til stack overload
+    }
   },
   getGameState() {
     const gameCells = document.querySelectorAll(".cell");
