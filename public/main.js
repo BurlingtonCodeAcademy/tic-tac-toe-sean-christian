@@ -72,7 +72,6 @@ function gameSetup() {
 
 function gameAction(e) {
   game.markBoard(e);
-
   console.log(game.gameChoice);
 }
 
@@ -160,6 +159,9 @@ const game = {
       this.switch();
     }
   },
+  //highlightWin(cellIndex1, cellIndex2, cellIndex3) {
+  //  let cell1 = document.getElementById(`cell-${cellIndex1}`);
+ // },
   gameWin() {
     if (
       this.gameState[0] === "X" &&
