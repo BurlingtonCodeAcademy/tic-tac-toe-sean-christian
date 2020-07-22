@@ -1,4 +1,5 @@
 // VARIABLE DECLARATIONS /////////////////////////////////////////////////////////////////////////////////////
+let gameCells = document.querySelectorAll(".cell");
 let startButton = document.getElementById("start");
 let playerName = document.getElementById("playerName");
 let xName = document.getElementById("xName");
@@ -62,7 +63,6 @@ function activateGame() {
 }
 
 function gameSetup() {
-  gameCells = document.getElementsByClassName("cell");
   game.getGameState();
   console.log(game.gameState);
   for (let cell of gameCells) {
@@ -114,13 +114,9 @@ const game = {
     ) {
       this.playerTurn = "O";
       this.addCPUMove();
-      game.getGameState();
-      this.switch();
     } else {
       this.playerTurn = "X";
-      game.getGameState();
       playerName.textContent = "O";
-      this.switch();
     }
   },
   addCPUMove() {
@@ -129,14 +125,13 @@ const game = {
     console.log(randomIndex);
     if ((this.gameState[randomIndex] !== "X") && (this.gameState[randomIndex] !== "O")) {
       console.log(this.gameState[randomIndex]);
-      this.gameState[randomIndex] = "O";
+      gameCells[randomIndex].click();
     } 
     else {
-      game.addCPUMove(); // Current problem is that this method keeps getting called infinite times til stack overload
+      game.addCPUMove(); 
     }
   },
   getGameState() {
-    const gameCells = document.querySelectorAll(".cell");
     gameCells.forEach((cell, index) => {
       this.gameState[index] = cell.textContent;
     });
