@@ -10,11 +10,14 @@
 </head>
 
 <body>
-  <h2>Tic Tac Toe</h2>
+  <!-- Game Title -->
+  <h2>Tic Tac Toe</h2> 
+<!-- Game Choices -->
   <form id='gameChoice'>
     <button type='submit' id='playerVersusPlayer'>Player vs. Player</button>
     <button type='submit' id='playerVersusCPU'>Player vs. Computer</button>
   </form>
+  <!-- Sets up a form for players to input their desired names -->
   <form id='nameForm'>
     <label for="xName">Player One:</label><br>
     <input type="text" id="xName" name="xName"><br>
@@ -23,7 +26,7 @@
     <br>
     <button id='nameSubmit' type='submit'>Submit</button>
   </form>  
-
+<!-- Sets up game board cells -->
   <div class="board">
     <div id="row-1">
       <div class="cell" id="cell-0"></div>
@@ -41,7 +44,7 @@
       <div class="cell" id="cell-8"></div>
     </div>
   </div>
-
+<!-- Status bar that displays player names (if applicable) and a running time on the current game -->
   <div class="status">
     <div>It's your turn <span id="playerName"></span></div>
 

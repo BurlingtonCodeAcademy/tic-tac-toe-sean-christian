@@ -18,6 +18,7 @@ let totalSec = 0;
 
 // FUNCTION DECLARATIONS /////////////////////////////////////////////////////////////////////////////////////
 playerVersusPlayer.onclick = function (event) {
+  // Sets game up for Player vs. Player version of game
   event.preventDefault();
   gameChoice.style.display = "none";
   nameForm.style.visibility = "visible";
@@ -25,6 +26,7 @@ playerVersusPlayer.onclick = function (event) {
 };
 
 playerVersusCPU.onclick = function (event) {
+  // Sets game up for Player vs Computer version of game
   event.preventDefault();
   gameChoice.style.display = "none";
   board.style.visibility = "visible";
@@ -35,25 +37,26 @@ playerVersusCPU.onclick = function (event) {
 };
 
 nameSubmit.onclick = function (event) {
+  // Takes in names of players in Player vs. Player game
   event.preventDefault();
   xName = xName.value;
   oName = oName.value;
   playerName.textContent = xName;
-  console.log(playerName);
   statusBar.style.visibility = "visible";
   nameForm.style.display = "none";
   board.style.visibility = "visible";
 };
 
 startButton.onclick = function initialize(e) {
+  // Determines what starts/changes when start button is clicked
   startButton.disabled = true;
   timerCount();
   activateGame();
 };
 
 function activateGame() {
+  // Determines what the game-style choice is and alerts the player(s) that the game has started
   game.activated = true;
-  console.log(game.gameChoice);
   if (game.gameChoice === "playerVersusComputer") {
     alert(`The game is afoot! It is ${game.playerTurn}'s turn!`);
   } else if (game.gameChoice === "playerVersusPlayer") {
@@ -63,25 +66,33 @@ function activateGame() {
 }
 
 function gameSetup() {
+  // Creates link to HTML cells and adds 'click' event listeners to all o
   game.getGameState();
-  console.log(game.gameState);
   for (let cell of gameCells) {
     cell.addEventListener("click", gameAction);
   }
 }
 
+function clearBoard() {
+  // Clears Cells post-game completion
+  for (let cell of gameCells) {
+    cell.removeEventListener("click", gameAction);
+  }
+}
+
 function gameAction(e) {
+  // Function attached to cell event listeners that calls board marking method
   game.markBoard(e);
-  console.log(game.gameChoice);
 }
 
 function timerCount() {
   timer = setInterval(setTime, 1000);
 }
+
 function setTime() {
   ++totalSec;
-  sec.innerHTML = pad(totalSec % 60);
-  min.innerHTML = pad(parseInt(totalSec / 60));
+  sec.innerHTML = pad(totalSec % 60); // Set modulus to 60 - used to get the remainder after integer division.
+  min.innerHTML = pad(parseInt(totalSec / 60)); // Takes the total amount of seconds and divdes by 60 to get the amount of minutes that has passed
 }
 
 function pad(val) {
@@ -94,23 +105,35 @@ function pad(val) {
 }
 
 const game = {
+  // Sets up the initial game state variables
   activated: false,
   playerTurn: "X",
   gameState: [],
+  winCombos: [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ],
   gameChoice: "",
   switch() {
-    if ((this.playerTurn === "X") && (this.gameChoice === "playerVersusPlayer")) {
+    // Changes player turn and, if PvCPU, calls CPU board marking method
+    if (this.playerTurn === "X" && this.gameChoice === "playerVersusPlayer") {
       this.playerTurn = "O";
       playerName.textContent = oName;
     } else if (
-      (this.playerTurn === "O") &&
-      (this.gameChoice === "playerVersusPlayer")
+      this.playerTurn === "O" &&
+      this.gameChoice === "playerVersusPlayer"
     ) {
       this.playerTurn = "X";
       playerName.textContent = xName;
     } else if (
-      (this.playerTurn === "X") &&
-      (this.gameChoice === "playerVersusCPU")
+      this.playerTurn === "X" &&
+      this.gameChoice === "playerVersusCPU"
     ) {
       this.playerTurn = "O";
       this.addCPUMove();
@@ -119,32 +142,40 @@ const game = {
       playerName.textContent = "O";
     }
   },
+
   addCPUMove() {
     // Game board marking for CPU in Player vs. Computer game
     let randomIndex = Math.floor(Math.random() * 9);
-    console.log(randomIndex);
-    if ((this.gameState[randomIndex] !== "X") && (this.gameState[randomIndex] !== "O")) {
-      console.log(this.gameState[randomIndex]);
+    if (
+      this.gameState[randomIndex] !== "X" &&
+      this.gameState[randomIndex] !== "O"
+    ) {
       gameCells[randomIndex].click();
-    } 
-    else {
-      game.addCPUMove(); 
+    } else {
+      game.addCPUMove();
     }
   },
+
   getGameState() {
+    // Updates array containing current game state
+    // and calls method checking for a winner or tie
     gameCells.forEach((cell, index) => {
       this.gameState[index] = cell.textContent;
     });
     this.gameWin();
   },
+
   statusUpdate() {
+    // Updates the on-screen display to show current player's turn
     if (this.playerTurn === "X") {
       playerName = xName.value;
     } else {
       playerName = oName.value;
     }
   },
+
   markBoard(e) {
+    //Responsible for marking the board, first detee
     if (e.target.textContent === "X" || e.target.textContent === "O") {
       alert("That space is taken! Please choose another spot!");
     } else {
@@ -153,193 +184,30 @@ const game = {
       this.switch();
     }
   },
-  //highlightWin(cellIndex1, cellIndex2, cellIndex3) {
-  //  let cell1 = document.getElementById(`cell-${cellIndex1}`);
- // },
+
   gameWin() {
-    if (
-      this.gameState[0] === "X" &&
-      this.gameState[1] === "X" &&
-      this.gameState[2] === "X"
-    ) {
-      setTimeout(function () {
-        alert("Player X has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[3] === "X" &&
-      this.gameState[4] === "X" &&
-      this.gameState[5] === "X"
-    ) {
-      setTimeout(function () {
-        alert("Player X has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[6] === "X" &&
-      this.gameState[7] === "X" &&
-      this.gameState[8] === "X"
-    ) {
-      setTimeout(function () {
-        alert("Player X has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[0] === "X" &&
-      this.gameState[3] === "X" &&
-      this.gameState[6] === "X"
-    ) {
-      setTimeout(function () {
-        alert("Player X has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[1] === "X" &&
-      this.gameState[4] === "X" &&
-      this.gameState[7] === "X"
-    ) {
-      setTimeout(function () {
-        alert("Player X has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[2] === "X" &&
-      this.gameState[5] === "X" &&
-      this.gameState[8] === "X"
-    ) {
-      setTimeout(function () {
-        alert("Player X has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[0] === "X" &&
-      this.gameState[4] === "X" &&
-      this.gameState[8] === "X"
-    ) {
-      setTimeout(function () {
-        alert("Player X has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[2] === "X" &&
-      this.gameState[4] === "X" &&
-      this.gameState[6] === "X"
-    ) {
-      setTimeout(function () {
-        alert("Player X has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[0] === "O" &&
-      this.gameState[1] === "O" &&
-      this.gameState[2] === "O"
-    ) {
-      setTimeout(function () {
-        alert("Player O has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[3] === "O" &&
-      this.gameState[4] === "O" &&
-      this.gameState[5] === "O"
-    ) {
-      setTimeout(function () {
-        alert("Player O has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[6] === "O" &&
-      this.gameState[7] === "O" &&
-      this.gameState[8] === "O"
-    ) {
-      setTimeout(function () {
-        alert("Player O has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[0] === "O" &&
-      this.gameState[3] === "O" &&
-      this.gameState[6] === "O"
-    ) {
-      setTimeout(function () {
-        alert("Player O has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[1] === "O" &&
-      this.gameState[4] === "O" &&
-      this.gameState[7] === "O"
-    ) {
-      setTimeout(function () {
-        alert("Player O has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[2] === "O" &&
-      this.gameState[5] === "O" &&
-      this.gameState[8] === "O"
-    ) {
-      setTimeout(function () {
-        alert("Player O has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[0] === "O" &&
-      this.gameState[4] === "O" &&
-      this.gameState[8] === "O"
-    ) {
-      setTimeout(function () {
-        alert("Player O has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (
-      this.gameState[2] === "O" &&
-      this.gameState[4] === "O" &&
-      this.gameState[6] === "O"
-    ) {
-      setTimeout(function () {
-        alert("Player O has won!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
-    } else if (this.gameState.includes("") === false) {
-      setTimeout(function () {
-        alert("The game is draw!");
-      }, 0);
-      setTimeout(function () {
-        location.reload();
-      }, 0);
+    // Game checkes all the available win conditions to determine is the game is still in progress / has been won / or has resulted in a tie
+    for (let win of this.winCombos) {
+      if (
+        this.gameState[win[0]] !== "" &&
+        this.gameState[win[0]] === this.gameState[win[1]] &&
+        this.gameState[win[1]] === this.gameState[win[2]]
+      ) {
+        clearBoard();
+        setTimeout(function () {
+          alert("Player X has won!");
+        }, 0);
+        setTimeout(function () {
+          location.reload();
+        }, 0);
+      } else if (this.gameState.includes("") === false) {
+        setTimeout(function () {
+          alert("The game is draw!");
+        }, 0);
+        setTimeout(function () {
+          location.reload();
+        }, 0);
+      }
     }
-  },
+  }
 };
