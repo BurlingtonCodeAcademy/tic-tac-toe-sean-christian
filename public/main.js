@@ -150,10 +150,10 @@ const game = {
       this.gameState[randomIndex] !== "X" &&
       this.gameState[randomIndex] !== "O"
     ) {
-      gameCells[randomIndex].click();
+      return gameCells[randomIndex].click();
     } else {
-      game.addCPUMove();
-    }
+      return game.addCPUMove();
+    } 
   },
 
   getGameState() {
@@ -194,8 +194,9 @@ const game = {
         this.gameState[win[1]] === this.gameState[win[2]]
       ) {
         clearBoard();
+        let winner = this.playerTurn
         setTimeout(function () {
-          alert("Player X has won!");
+          alert(`Player ${winner} has won!`);
         }, 0);
         setTimeout(function () {
           location.reload();
