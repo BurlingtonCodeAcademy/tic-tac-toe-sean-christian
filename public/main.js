@@ -139,7 +139,7 @@ const game = {
       this.addCPUMove();
     } else {
       this.playerTurn = "X";
-      playerName.textContent = "O";
+      playerName.textContent = "X";
     }
   },
 
@@ -201,14 +201,18 @@ const game = {
         setTimeout(function () {
           location.reload();
         }, 0);
-      } else if (this.gameState.includes("") === false) {
+        return 
+      } 
+    }
+       if (this.gameState.includes("") === false) {
         setTimeout(function () {
-          alert("The game is draw!");
+         alert("The game is draw!"); 
         }, 0);
-        setTimeout(function () {
-          location.reload();
-        }, 0);
-      }
+        
+       setTimeout(function () {
+         location.reload();
+       }, 0);
+      
     }
   }
 };
